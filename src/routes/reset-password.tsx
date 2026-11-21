@@ -1,0 +1,7 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { useEffect,useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
+import { pageMeta } from '@/components/lostlink';
+export const Route=createFileRoute('/reset-password')({head:()=>pageMeta('Reset your password','Securely set a new LostLink account password.'),component:ResetPassword});
+function ResetPassword(){const [valid,setValid]=useState(false);const [message,setMessage]=useState('');useEffect(()=>{if(window.location.hash.includes('type=recovery'))setValid(true);const {data}=supabase.auth.onAuthStateChange(event=>{if(event==='PASSWORD_RECOVERY')setValid(true)});return()=>data.subscription.unsubscribe()},[]);return <main className="auth-wrap"><form className="form-panel" onSubmit={async e=>{e.preventDefault();const password=String(new FormData(e.currentTarget).get('password'));if(password.length<8||password.length>128){setMessage('Use 8–128 characters');return}const {error}=await supabase.auth.updateUser({password});setMessage(error?.message??'Password updated. You can now sign in.')}}><h1>A fresh start.</h1>{valid?<><label>New password<input required type="password" name="password" minLength={8} maxLength={128}/></label><Button className="form-submit">Save new password</Button></>:<p className="intro">Open the password reset link from your email to continue.</p>}{message&&<p role="status" className="form-message">{message}</p>}</form></main>}

@@ -1,23 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { createFileRoute,Link,useNavigate } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { Search,Heart,ArrowRight,Sparkles,Plus,Check,HandHeart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ItemCard,SearchBox,pageMeta } from '@/components/lostlink';
+import { itemsQuery } from '@/lib/queries';
+import hero from '@/assets/lostlink-illustration.asset.json';
+export const Route=createFileRoute('/')({head:()=>pageMeta('Lost something? Let’s bring it home.','LostLink connects students with their lost belongings. Report, browse, and find your campus match.'),loader:({context})=>context.queryClient.ensureQueryData(itemsQuery),component:Home});
+function Home(){const {data:items}=useSuspenseQuery(itemsQuery);const [search,setSearch]=useState('');const navigate=useNavigate();return <main><section className="hero"><img className="hero-art" src={hero.url} alt="Lavender backpack, mint headphones, and keys"/><div className="hero-content"><span className="hero-eyebrow"><Sparkles size={13}/> Little things. Happy reunions.</span><h1>Lost something?<br/><span>Let’s bring it home.</span></h1><p>Your campus lost & found, with a little more heart.<br/>Find what’s missing. Return what’s found.</p><div className="hero-actions"><Button asChild><Link to="/report" search={{kind:'lost'}}><Search/> Report lost item</Link></Button><Button asChild variant="secondary"><Link to="/report" search={{kind:'found'}}><Plus/> Report found item</Link></Button></div><div className="hero-note"><Check size={13}/> Free to use. Made for your campus community.</div></div></section><div className="content"><SearchBox value={search} onChange={setSearch} onSubmit={()=>navigate({to:'/browse',search:{q:search}})}/><div className="category-links">{['electronics','keys','bags','clothing','accessories'].map(c=><Button key={c} variant="ghost" onClick={()=>navigate({to:'/browse',search:{category:c}})}>{c.charAt(0).toUpperCase()+c.slice(1)}</Button>)}</div>{(['found','lost'] as const).map(kind=><section className="home-section" key={kind}><div className="section-heading"><div><h2>{kind==='found'?<HandHeart size={22}/>:<Search size={21}/>} {kind==='found'?'Freshly found':'Still looking for home'}</h2><p>{kind==='found'?'Found by someone kind. Could it be yours?':'A few things our campus is missing.'}</p></div><Link to="/browse" search={{kind}}>View all {kind} <ArrowRight size={14}/></Link></div><div className="item-grid">{items.filter(i=>i.kind===kind).slice(0,4).map(item=><ItemCard key={item.id} item={item}/>)}</div>{!items.some(i=>i.kind===kind)&&<p className="results-count">No {kind} items reported yet.</p>}</section>)}<section className="kindness-band"><span><Heart size={25}/></span><div><h3>A small act of kindness goes a long way.</h3><p>Found something on campus? You could make someone’s day.</p></div><Link to="/report" search={{kind:'found'}}>Report a found item <ArrowRight size={14}/></Link></section></div></main>}

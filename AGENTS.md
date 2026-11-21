@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application structure
+- Use TanStack leaf routes for each LostLink page; shared shell and live invalidation are mounted at the root to keep navigation consistent.
+- Keep validated mutations and optional AI matching behind authenticated server functions; database row policies enforce listing ownership and request-participant privacy.
+- Keep deterministic category/keyword/location/date matching in a shared pure module so matches work without AI.
+- Use private item-photo storage with signed viewing URLs because the workspace disallows public buckets.
+- Treat sample listings as clearly labeled examples and disable contact requests for them; genuine reports use the authenticated reporter identity.
