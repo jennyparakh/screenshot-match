@@ -8,6 +8,13 @@
       "when": 1795275828526,
       "tag": "0000_lostlink_core",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795399761997,
+      "tag": "0001_lostlink_phase1",
+      "breakpoints": true
     }
   ]
 }

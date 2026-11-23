@@ -14,11 +14,43 @@ export type Database = {
   }
   public: {
     Tables: {
+      item_private: {
+        Row: {
+          created_at: string
+          item_id: string
+          secret_details: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          item_id: string
+          secret_details: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          item_id?: string
+          secret_details?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "item_private_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: true
+            referencedRelation: "items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       items: {
         Row: {
+          brand: string | null
           category: string
+          color: string | null
           created_at: string
           description: string
+          details: string | null
           event_date: string
           id: string
           image_path: string | null
@@ -29,9 +61,12 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          brand?: string | null
           category: string
+          color?: string | null
           created_at?: string
           description: string
+          details?: string | null
           event_date: string
           id?: string
           image_path?: string | null
@@ -42,9 +77,12 @@ export type Database = {
           user_id: string
         }
         Update: {
+          brand?: string | null
           category?: string
+          color?: string | null
           created_at?: string
           description?: string
+          details?: string | null
           event_date?: string
           id?: string
           image_path?: string | null
@@ -56,36 +94,84 @@ export type Database = {
         }
         Relationships: []
       }
+      notifications: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          item_id: string | null
+          read_at: string | null
+          related_item_id: string | null
+          request_id: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          item_id?: string | null
+          read_at?: string | null
+          related_item_id?: string | null
+          request_id?: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          item_id?: string | null
+          read_at?: string | null
+          related_item_id?: string | null
+          request_id?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       requests: {
         Row: {
           contact: string
           created_at: string
+          decided_at: string | null
+          decision_note: string | null
           id: string
           item_id: string
           message: string
           recipient_id: string
           sender_id: string
           status: string
+          verification_answer: string | null
         }
         Insert: {
           contact: string
           created_at?: string
+          decided_at?: string | null
+          decision_note?: string | null
           id?: string
           item_id: string
           message: string
           recipient_id: string
           sender_id: string
           status?: string
+          verification_answer?: string | null
         }
         Update: {
           contact?: string
           created_at?: string
+          decided_at?: string | null
+          decision_note?: string | null
           id?: string
           item_id?: string
           message?: string
           recipient_id?: string
           sender_id?: string
           status?: string
+          verification_answer?: string | null
         }
         Relationships: [
           {
@@ -102,7 +188,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      notify_potential_match: {
+        Args: { p_my_item: string; p_other_item: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
