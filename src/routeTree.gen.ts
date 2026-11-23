@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BrowseRouteImport } from './routes/browse'
+import { Route as LayoutStudioRouteImport } from './routes/layout-studio'
 import { Route as MyReportsRouteImport } from './routes/my-reports'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -30,6 +31,11 @@ const AuthRoute = AuthRouteImport.update({
 const BrowseRoute = BrowseRouteImport.update({
   id: '/browse',
   path: '/browse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutStudioRoute = LayoutStudioRouteImport.update({
+  id: '/layout-studio',
+  path: '/layout-studio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MyReportsRoute = MyReportsRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/browse': typeof BrowseRoute
+  '/layout-studio': typeof LayoutStudioRoute
   '/my-reports': typeof MyReportsRoute
   '/report': typeof ReportRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/browse': typeof BrowseRoute
+  '/layout-studio': typeof LayoutStudioRoute
   '/my-reports': typeof MyReportsRoute
   '/report': typeof ReportRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/browse': typeof BrowseRoute
+  '/layout-studio': typeof LayoutStudioRoute
   '/my-reports': typeof MyReportsRoute
   '/report': typeof ReportRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/browse'
+    | '/layout-studio'
     | '/my-reports'
     | '/report'
     | '/reset-password'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/browse'
+    | '/layout-studio'
     | '/my-reports'
     | '/report'
     | '/reset-password'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/browse'
+    | '/layout-studio'
     | '/my-reports'
     | '/report'
     | '/reset-password'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   BrowseRoute: typeof BrowseRoute
+  LayoutStudioRoute: typeof LayoutStudioRoute
   MyReportsRoute: typeof MyReportsRoute
   ReportRoute: typeof ReportRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/browse'
       fullPath: '/browse'
       preLoaderRoute: typeof BrowseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/layout-studio': {
+      id: '/layout-studio'
+      path: '/layout-studio'
+      fullPath: '/layout-studio'
+      preLoaderRoute: typeof LayoutStudioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/my-reports': {
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   BrowseRoute: BrowseRoute,
+  LayoutStudioRoute: LayoutStudioRoute,
   MyReportsRoute: MyReportsRoute,
   ReportRoute: ReportRoute,
   ResetPasswordRoute: ResetPasswordRoute,
