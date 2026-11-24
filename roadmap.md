@@ -10,3 +10,4 @@
 - [x] Authenticated AI Gateway image analysis with structured match plans
 - [x] Generated layout preview, comparison, and plan export
 - [x] Schema tests, live AI verification, and responsive browser checks
+- [x] Tighten item photo access: open listings visible, others owner-only; verify owner/other/anon

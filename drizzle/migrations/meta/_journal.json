@@ -15,6 +15,13 @@
       "when": 1795399761997,
       "tag": "0001_lostlink_phase1",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795540639154,
+      "tag": "0002_tighten_item_photo_access",
+      "breakpoints": true
     }
   ]
 }
