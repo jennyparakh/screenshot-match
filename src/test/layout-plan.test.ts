@@ -10,7 +10,7 @@ const validPlan = {
   palette: { background: '#ffffff', surface: '#f5f5f5', text: '#202020', mutedText: '#6b6b6b', primary: '#5b5bd6', accent: '#e8e8e8' },
   typography: { fontFamily: 'system-ui', headingSize: 32, bodySize: 16 },
   elements: [{
-    id: 'title', kind: 'heading', label: 'Page title', x: -20, y: 20, width: 1400, height: 60,
+    id: 'title', kind: 'heading', label: 'Page title', x: -20, y: 20, width: 1500, height: 60,
     text: 'Dashboard', background: null, foreground: '#202020', border: null, radius: null,
     fontSize: 32, fontWeight: 700, align: 'left', zIndex: 1,
   }],

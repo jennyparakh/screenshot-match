@@ -1,4 +1,4 @@
-import { createServerFn, getRequest } from '@tanstack/react-start';
+import { createServerFn } from '@tanstack/react-start';
 import { requireSupabaseAuth } from '@/integrations/supabase/auth-middleware';
 import { screenshotFileError } from './layout-plan';
 
@@ -26,6 +26,5 @@ export const analyzeScreenshot = createServerFn({ method: 'POST' })
       file: data.file,
       width: data.width,
       height: data.height,
-      signal: getRequest().signal,
     });
   });

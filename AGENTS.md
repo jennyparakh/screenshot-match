@@ -32,6 +32,7 @@ use the editor.
 ## Application structure
 - Use TanStack leaf routes for each LostLink page; shared shell and live invalidation are mounted at the root to keep navigation consistent.
 - Keep validated mutations and optional AI matching behind authenticated server functions; database row policies enforce listing ownership and request-participant privacy.
+- Keep screenshot-to-layout analysis in authenticated server functions with in-memory uploads; render AI-returned elements as data without persisting images or executing generated markup.
 - Keep deterministic category/keyword/location/date matching in a shared pure module so matches work without AI.
 - Use private item-photo storage with signed viewing URLs because the workspace disallows public buckets.
 - Treat sample listings as clearly labeled examples and disable contact requests for them; genuine reports use the authenticated reporter identity.

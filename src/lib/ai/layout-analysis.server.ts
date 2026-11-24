@@ -58,7 +58,7 @@ export async function analyzeScreenshotLayout({
       messages,
       output: Output.object({ schema: layoutPlanSchema }),
       maxRetries: 0,
-      abortSignal: signal,
+      ...(signal ? { abortSignal: signal } : {}),
       providerOptions: {
         openai: {
           forceReasoning: true,
