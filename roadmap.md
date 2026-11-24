@@ -6,7 +6,7 @@
 - [ ] Publish working app
 
 ## Screenshot layout studio
-- [ ] Multi-screenshot upload and per-image analysis states
-- [ ] Authenticated AI Gateway image analysis with structured match plans
-- [ ] Generated layout preview, comparison, and plan export
-- [ ] Schema tests, live AI verification, and responsive browser checks
+- [x] Multi-screenshot upload and per-image analysis states
+- [x] Authenticated AI Gateway image analysis with structured match plans
+- [x] Generated layout preview, comparison, and plan export
+- [x] Schema tests, live AI verification, and responsive browser checks
