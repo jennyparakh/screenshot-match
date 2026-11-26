@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Anyone views photos of open listings" ON storage.objects;

@@ -24,3 +24,11 @@ export const improveMatches=createServerFn({method:'POST'}).middleware([requireS
  if(!candidates?.length)return [];
  const {rankMatches}=await import('./ai/matching.server');return rankMatches(source,candidates);
 });
+// Open-listing photos are signed server-side after confirming the listing is open and owned by the uploader; storage itself stays owner-only.
+export const openListingPhotoUrl=createServerFn({method:'POST'}).inputValidator((v:unknown)=>z.string().max(500).regex(/^[0-9a-f-]{36}\/[0-9a-f-]{36}\.(jpg|png|webp)$/).parse(v)).handler(async({data})=>{
+ const {supabaseAdmin}=await import('@/integrations/supabase/client.server');
+ const owner=data.split('/')[0]!;
+ const {data:item}=await supabaseAdmin.from('items').select('id').eq('image_path',data).eq('resolved',false).eq('user_id',owner).limit(1).maybeSingle();
+ if(!item)return null;
+ const {data:signed}=await supabaseAdmin.storage.from('item-photos').createSignedUrl(data,3600);return signed?.signedUrl??null;
+});
